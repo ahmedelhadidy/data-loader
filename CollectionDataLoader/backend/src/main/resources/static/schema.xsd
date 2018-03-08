@@ -1,0 +1,61 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="entity">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="parameters">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Param" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="name" />
+										<xs:element type="xs:string" name="value" />
+										<xs:element type="DataType" name="data-type" />
+										<xs:element type="xs:string" name="date-formate" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colomn" maxOccurs="unbounded"
+					minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:string" name="name" />
+							<xs:element type="xs:int" name="order" />
+							<xs:element type="xs:string" name="value" />
+							<xs:element type="DataType" name="data-type" />
+							<xs:element type="xs:string" name="date-formate" />
+							<xs:element type="xs:string" name="source" />
+							<xs:element type="xs:string" name="query" />
+							<xs:element name="mapping" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="key" />
+										<xs:element type="xs:string" name="value" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute type="xs:boolean" name="key" use="optional" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="name" />
+			<xs:attribute type="xs:string" name="target" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="DataType" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Date" />
+			<xs:enumeration value="Number" />
+			<xs:enumeration value="String" />
+			<xs:enumeration value="Null" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	
+
+</xs:schema>
