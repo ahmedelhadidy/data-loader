@@ -5,15 +5,16 @@
 
 	
 	<artifactId>backend</artifactId>
-	
+	<packaging>jar</packaging>
 
 	<name>backend</name>
 	<description>data loader backend</description>
-
+    
 	<parent>
 		<groupId>eg.com.dataload</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		
 	</parent>
 
 	<dependencies>

@@ -10,7 +10,7 @@ export class FileuploadService {
 
   processFile(file: File): Observable<HttpEvent<{}>> {
 
-    formdata: FormData  = new FormData();
+    const formdata: FormData  = new FormData();
     formdata.append('file', file );
     const req = new HttpRequest('POST', '/post' , formdata , {
       reportProgress: true,

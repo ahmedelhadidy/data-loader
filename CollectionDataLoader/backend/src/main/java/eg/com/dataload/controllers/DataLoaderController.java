@@ -1,4 +1,4 @@
-package main.java.eg.com.dataload.controllers;
+package eg.com.dataload.controllers;
 
 public class DataLoaderController {
 
