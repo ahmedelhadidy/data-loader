@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FileuploadComponent } from './fileupload/fileupload.component';
+import {FileuploadService} from "./fileupload.service";
+import {HttpModule} from "@angular/http";
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -10,9 +14,12 @@ import { FileuploadComponent } from './fileupload/fileupload.component';
     FileuploadComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [FileuploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

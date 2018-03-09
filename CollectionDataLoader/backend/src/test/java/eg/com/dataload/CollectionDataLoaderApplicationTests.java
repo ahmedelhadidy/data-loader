@@ -77,7 +77,7 @@ public class CollectionDataLoaderApplicationTests {
 	
 	
 	
-	@Test
+	//@Test
 	public void processEntity(){
 		try{
 			Map<String, DataSource> databases = new HashMap<String, DataSource>();

@@ -32,7 +32,15 @@ export class FileuploadComponent implements OnInit {
       if (event.type === HttpEventType.UploadProgress) {
         this.currentFileUploadProgress.percentage = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
+        let res = event as HttpResponse<any>;
+        if(res.ok){
+          console.log('File is completely uploaded!');
+          console.log(res.body)
+        }
+        else{
+          console.log('something went wrong at backend');
+        }
+
       }
     });
     this.selectedFiles = undefined;
