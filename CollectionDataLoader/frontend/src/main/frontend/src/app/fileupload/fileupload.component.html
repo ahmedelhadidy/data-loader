@@ -1,5 +1,14 @@
 <script src="../app.module.ts"></script>
 <body>
+
+<div class="alert" *ngIf="errorMessage">
+  <button type="button" class="close" data-dismiss="alert" (click)="dismessError()">&times;</button>
+  <strong>Warning!</strong> {{ errorMessage }}.
+</div>
+
+<br/>
+
+
 <label class="btn btn-default">
   <input type="file" (change)="selectFile($event)" />
 
@@ -8,4 +17,12 @@
 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
   uploade
 </button>
+
+<br>
+
+<div *ngIf="entity" style="width: 600px ; margin: 30px">
+ <h3> Edit Entity Parameters</h3>
+  <br/>
+<app-entity-param   *ngFor="let e of entity['parameters']['param']" [entityParam]="e"></app-entity-param>
+</div>
 </body>

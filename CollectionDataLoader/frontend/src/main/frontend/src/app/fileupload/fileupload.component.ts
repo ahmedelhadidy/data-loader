@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FileuploadService} from '../fileupload.service';
-import {HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
 
 @Component({
 
@@ -13,7 +13,8 @@ export class FileuploadComponent implements OnInit {
    selectedFiles: FileList;
    currentFile: File;
    currentFileUploadProgress: {percentage: number} = {percentage: 0};
-
+   errorMessage: string;
+   entity: any;
 
 
 
@@ -28,24 +29,21 @@ export class FileuploadComponent implements OnInit {
 
   upload() {
     this.currentFile = this.selectedFiles.item(0);
-    this.fileuploadServ.processFile(this.currentFile).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.currentFileUploadProgress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        let res = event as HttpResponse<any>;
-        if(res.ok){
+    this.fileuploadServ.processFile(this.currentFile).subscribe(response => {
           console.log('File is completely uploaded!');
-          console.log(res.body)
-        }
-        else{
-          console.log('something went wrong at backend');
-        }
-
-      }
+          this.entity = response.json();
+          console.log(this.entity);
+    } , error => {
+      let er = error as HttpErrorResponse;
+      console.log('error happened');
+      console.log(er.error);
+      this.errorMessage = er.error;
     });
     this.selectedFiles = undefined;
   }
 
-
+  dismessError() {
+    this.errorMessage = undefined;
+  }
 
 }
