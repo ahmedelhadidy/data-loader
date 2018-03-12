@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-entity-param',
@@ -14,10 +15,14 @@ export class EntityParamComponent implements OnInit {
     "dateFormate": string
   };
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
 
+  }
+
+  onParamValueChange(){
+    this.notificationService.sendNotification(this.entityParam);
   }
 
 

@@ -4,7 +4,9 @@ package eg.com.dataload.base;
 public enum DataBaseEnvironmentErrorCodes  {
 	
 	NoEnvExists("NoEnvExists","No Environment Exists with that Name"),
-	NoDataBaseExists("NoDataBaseExists","No Database Exists with that Name ");
+	NoDataBaseExists("NoDataBaseExists","No Database Exists with that Name "),
+	EmptyEnv("EmptyEnv","Env has no database defined")
+	;
 	
 	
 	

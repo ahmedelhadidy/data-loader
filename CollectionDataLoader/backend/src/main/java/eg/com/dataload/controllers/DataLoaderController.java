@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import eg.com.dataload.aop.annotaion.Loggable;
 import eg.com.dataload.model.Entity;
+import eg.com.dataload.service.DataBaseEnvService;
 import eg.com.dataload.service.EntityService;
 import eg.com.dataload.service.ExcelService;
 
@@ -30,9 +31,11 @@ public class DataLoaderController {
 	@Autowired
 	EntityService entityService; 
 	
+	@Autowired
+	DataBaseEnvService dataBaseEnvServ;
+	
 	@Loggable
 	@RequestMapping(value="/post",method= RequestMethod.POST)
-	//@PostMapping("/post")
 	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file){
 	    System.out.println(file.getOriginalFilename());
 	    
@@ -49,8 +52,20 @@ public class DataLoaderController {
 			return ResponseEntity.status(HttpStatus.OK).body(e);
 		}  catch (Exception e) {
 			logger.error(e,e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR). body(e.getMessage());
 		}
 	
+	}
+	
+	@Loggable
+	@RequestMapping(value="/process",method=RequestMethod.POST)
+	public ResponseEntity<?> processEntity(@RequestParam("entity") Entity entity){
+		try{			
+			entityService.processEntity(entity, dataBaseEnvServ.getEnvDataSources("DEV"));
+			return ResponseEntity.status(HttpStatus.OK).build();			
+		}catch(Exception e){
+			logger.error(e,e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR). body(e.getMessage()); 
+		}
 	}
 }

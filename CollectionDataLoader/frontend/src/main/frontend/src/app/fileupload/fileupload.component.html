@@ -25,4 +25,8 @@
   <br/>
 <app-entity-param   *ngFor="let e of entity['parameters']['param']" [entityParam]="e"></app-entity-param>
 </div>
+<br/>
+<div *ngIf="entity">
+<button class="btn btn-success" (click)="processEntity()"> process </button>
+</div>
 </body>

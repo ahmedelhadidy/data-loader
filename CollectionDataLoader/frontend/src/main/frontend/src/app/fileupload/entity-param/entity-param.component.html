@@ -3,6 +3,6 @@
     <h3 class="panel-title">{{ entityParam.name }}</h3>
   </div>
   <div class="panel-body">
-    <input type="text" [value]="entityParam.value">
+    <input type="text" [(ngModel)]="entityParam.value" (change)="onParamValueChange()">
   </div>
 </div>
