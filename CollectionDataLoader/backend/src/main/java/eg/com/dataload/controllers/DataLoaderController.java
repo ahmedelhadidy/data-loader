@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,7 +60,7 @@ public class DataLoaderController {
 	
 	@Loggable
 	@RequestMapping(value="/process",method=RequestMethod.POST)
-	public ResponseEntity<?> processEntity(@RequestParam("entity") Entity entity){
+	public ResponseEntity<?> processEntity(@RequestBody Entity entity){
 		try{			
 			entityService.processEntity(entity, dataBaseEnvServ.getEnvDataSources("DEV"));
 			return ResponseEntity.status(HttpStatus.OK).build();			
