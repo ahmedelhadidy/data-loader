@@ -1,0 +1,17 @@
+<body>
+
+<h2> All Env {{ selectedEnv['name'] }} Databases  </h2>
+<br/>
+<button class="btn btn-primary" (click)="addNew()">Add</button>
+<br/>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let ds of selectedEnv['database']" [class.active]="selectedDataSource && selectedDataSource['databaseName'] === ds['databaseName']" (click)="selectedDataSource= ds"> {{ ds['databaseName'] }} </li>
+</ul>
+<br/>
+
+<div *ngIf="selectedDataSource">
+
+  <app-view-edit-data-source [database]="selectedDataSource" [databaseEnv]="selectedEnv"></app-view-edit-data-source>
+</div>
+
+</body>

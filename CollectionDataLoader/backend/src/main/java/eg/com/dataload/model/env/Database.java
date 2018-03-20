@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * <p>Java class for anonymous complex type.
@@ -44,8 +46,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@JsonIgnoreProperties(value = { "environment" })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+	"databaseid",	
     "databaseName",
     "connectionString",
     "username",
@@ -56,6 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name="DATA_BASE")
 public class Database {
 
+	@XmlElement(name = "database-id", required = false)  
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected int id; 
@@ -75,6 +80,7 @@ public class Database {
     protected int maxConnections;
     @Column(name="INI_DEFF")
     protected boolean initialDeff;
+    
     
     @ManyToOne
     protected Env environment;
@@ -205,6 +211,14 @@ public class Database {
 
 	public void setEnvironment(Env environment) {
 		this.environment = environment;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
     
     

@@ -22,7 +22,7 @@ public class ExcelValidationException extends Exception {
 
 	@Override
 	public String getMessage() {		
-		return "Error Parsing Col,Row ["+colomnNo+1 +","+rowNo+1 +"] :- "+message;
+		return "Error Parsing Col,Row ["+(colomnNo+1) +","+(rowNo+1) +"] :- "+message;
 	}
 	
 	

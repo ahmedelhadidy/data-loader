@@ -17,7 +17,10 @@ export class FileuploadComponent implements OnInit, OnDestroy {
    currentFile: File;
    currentFileUploadProgress: {percentage: number} = {percentage: 0};
    errorMessage: string;
+   notificationMessage: string;
    entity: any;
+   env : any[];
+   selectedEnv ;
    subscription: Subscription;
 
 
@@ -41,6 +44,11 @@ export class FileuploadComponent implements OnInit, OnDestroy {
           }
         }
      });
+
+    this.fileuploadServ.getEnvironments().subscribe(envs =>{
+      this.env = envs;
+      console.log(this.env);
+    })
   }
 
   selectFile(event) {
@@ -54,21 +62,23 @@ export class FileuploadComponent implements OnInit, OnDestroy {
           this.entity = response.json();
           console.log(this.entity);
     } , error => {
-      let er = error as HttpErrorResponse;
+
       console.log('error happened');
-      console.log(er.error);
-      this.errorMessage = er.error;
+      console.log(error);
+      this.errorMessage =error['_body'];
     });
     this.selectedFiles = undefined;
   }
 
   processEntity(){
 
-    this.fileuploadServ.processEntity(this.entity).subscribe(response =>{
+    this.fileuploadServ.processEntity(this.entity,this.selectedEnv).subscribe(response =>{
       console.log('Entity processed successfully')
+      this.notificationMessage='Entity '+this.entity.name+' processed successfully '
     },
     error => {
       console.log('server error '+error);
+      this.errorMessage =error['_body'];
     }
       );
 
@@ -76,6 +86,10 @@ export class FileuploadComponent implements OnInit, OnDestroy {
 
   dismessError() {
     this.errorMessage = undefined;
+  }
+
+  dismessNotification() {
+    this.notificationMessage = undefined;
   }
 
   ngOnDestroy(){

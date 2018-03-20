@@ -1,0 +1,25 @@
+<body>
+
+<h2> All defined environments </h2>
+<br/>
+<button class="btn btn-primary" (click)="createNew()">New</button>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let env of allEnvs" [class.active]="selectedEnv && selectedEnv['name'] === env['name']" (click)="selectedEnv= env">
+    <span *ngIf="env['new'] && env['new']; else envName ">
+      <input type="text" [(ngModel)]="env['name']"/>
+      <button class="btn-primary" (click)="save(env)"> Save </button>
+    </span>
+
+    <ng-template #envName>
+      {{ env['name'] }}
+    </ng-template>
+  </li>
+</ul>
+
+<br/>
+
+<div *ngIf="selectedEnv">
+<app-data-source [selectedEnv]="selectedEnv"></app-data-source>
+</div>
+
+</body>

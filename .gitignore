@@ -3,3 +3,4 @@ RemoteSystemsTempFiles/
 CollectionDataLoader/target/**
 CollectionDataLoader/.settings/**
 **/node_modules/**
+**/transaction-logs/**

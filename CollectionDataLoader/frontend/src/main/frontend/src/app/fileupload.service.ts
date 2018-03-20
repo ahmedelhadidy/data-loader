@@ -17,13 +17,51 @@ export class FileuploadService {
 
   }
 
-  processEntity(entity): Observable<Response> {
+  processEntity(entity,env): Observable<Response> {
 
-    let bodyString = JSON.stringify(entity); // Stringify payload
+    const request = {
+      entity: entity,
+      env: env
+    }
+
+    let bodyString = JSON.stringify(request); // Stringify payload
     let headers = new Headers ({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });
     return this.http.post('/process',bodyString, options);
   }
+
+  getEnvironments() : Observable<any>{
+
+    let headers = new Headers ({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get('/getenvs',options).map(response =>{
+      return response.json();
+    });
+  }
+
+  createEnv(env) : Observable<any> {
+    let headers = new Headers ({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post('/createenv',JSON.stringify(env),options).map(response =>{
+      return response.json();
+    });
+  }
+
+  createDataBase(env , database) : Observable<any> {
+
+   let operationEnv = Object.assign({},env);
+
+    let headers = new Headers ({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });
+    operationEnv.database = [];
+    operationEnv.database.push(database);
+
+    return this.http.post('/creatdb',JSON.stringify(operationEnv),options).map(response =>{
+      return response.json();
+    });
+  }
+
+
 
 
 }

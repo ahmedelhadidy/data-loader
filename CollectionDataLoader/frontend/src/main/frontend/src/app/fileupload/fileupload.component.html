@@ -1,10 +1,21 @@
 <script src="../app.module.ts"></script>
 <body>
 
-<div class="alert" *ngIf="errorMessage">
-  <button type="button" class="close" data-dismiss="alert" (click)="dismessError()">&times;</button>
-  <strong>Warning!</strong> {{ errorMessage }}.
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  {{ errorMessage }}
 </div>
+
+
+
+<div class="alert alert-success" role="alert" *ngIf="notificationMessage">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Info:</span>
+  {{ notificationMessage }}
+</div>
+
+
 
 <br/>
 
@@ -18,15 +29,51 @@
   uploade
 </button>
 
-<br>
 
-<div *ngIf="entity" style="width: 600px ; margin: 30px">
+
+<div id="env-dropdown" class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
+    <span *ngIf="selectedEnv; else noselection">
+       {{ selectedEnv['name']}}
+    </span>
+
+    <ng-template #noselection> Select Env </ng-template>
+
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li (click)="selectedEnv= undefined"> unselect</li>
+    <li *ngFor="let e of env" (click)="selectedEnv= e"> {{ e['name']}} </li>
+  </ul>
+</div>
+
+<div *ngIf="entity" style="width: 600px">
  <h3> Edit Entity Parameters</h3>
   <br/>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+     {{ entity.name }}
+    </div>
+  </div>
+  <br/>
+
+
+
+  <br/>
+
 <app-entity-param   *ngFor="let e of entity['parameters']['param']" [entityParam]="e"></app-entity-param>
+
+
+
 </div>
 <br/>
 <div *ngIf="entity">
-<button class="btn btn-success" (click)="processEntity()"> process </button>
+<button class="btn btn-success" (click)="processEntity()" [disabled]="!selectedEnv || !entity"> process </button>
 </div>
+
+
+
+
 </body>

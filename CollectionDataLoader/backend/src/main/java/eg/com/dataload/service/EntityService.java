@@ -253,7 +253,7 @@ public class EntityService {
         	}
     		else if(!CommonUtil.isEmptyString(colomn.getValue())){
         		if(colomn.getValue().trim().matches(PARAM_REG_X)){
-        			value = parameters.get(colomn.getValue());
+        			value = parameters.get(colomn.getValue().toUpperCase());
         		}else{
         			value = getValueWithCorrectType(colomn.getValue() , colomn.getDataType(),colomn.getDateFormate());        			
         		}

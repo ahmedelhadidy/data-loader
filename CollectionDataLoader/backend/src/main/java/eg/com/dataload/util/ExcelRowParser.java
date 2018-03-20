@@ -1,7 +1,10 @@
 package eg.com.dataload.util; 
 
+import java.util.Arrays;
+
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.hibernate.loader.custom.Return;
 
 import eg.com.dataload.base.ExcelValidationException;
 import eg.com.dataload.model.DataType;
@@ -48,7 +51,9 @@ public class ExcelRowParser {
 		try{
 			dataType = DataType.valueOff(dataTypeStr) ;			
 		}catch(IllegalArgumentException e){
-			throw new ExcelValidationException(col-1, row.getRowNum(), "Parameter Data Type should be one of "+DataType.values(),e);			
+			StringBuilder  error = new StringBuilder("parameter Data Type should be one of ");
+			Arrays.asList(DataType.values()).forEach( dataItem -> error.append(dataItem.value()).append(",") );
+			throw new ExcelValidationException(col-1, row.getRowNum(), error.toString(),e);						
 		}
 		String dateFormate =  getCell(row, col++);
 		if(dataType == DataType.DATE && CommonUtil.isEmptyString(dateFormate)){
@@ -83,7 +88,9 @@ public class ExcelRowParser {
 		try{
 			dataType = DataType.valueOff(dataTypeStr) ;			
 		}catch(IllegalArgumentException e){
-			throw new ExcelValidationException(col-1, row.getRowNum(), "colomn Data Type should be one of "+DataType.values(),e);			
+			StringBuilder  error = new StringBuilder("colomn Data Type should be one of ");
+			Arrays.asList(DataType.values()).forEach( dataItem -> error.append(dataItem.value()).append(",") );
+			throw new ExcelValidationException(col-1, row.getRowNum(), error.toString(),e);			
 		}
 		String dateFormate =  getCell(row, col++);
 		if(dataType == DataType.DATE && CommonUtil.isEmptyString(dateFormate)){

@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +20,8 @@ import eg.com.dataload.service.DataBaseEnvService;
 import eg.com.dataload.service.EntityService;
 import eg.com.dataload.service.ExcelService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest()
+//@RunWith(SpringRunner.class)
+//@SpringBootTest()
 public class CollectionDataLoaderApplicationTests {
 
 	@Autowired
@@ -38,7 +37,7 @@ public class CollectionDataLoaderApplicationTests {
 	
     @Before
     public void setup() {
-    	defaultFile = new File("d:\\temp\\collection\\Loaders\\DWH_CUSTOMER_INVOICES_LOADER.xlsx")	;
+    	//defaultFile = new File("d:\\temp\\collection\\Loaders\\DWH_CUSTOMER_INVOICES_LOADER.xlsx")	;
     }
 	
 	//@Test
