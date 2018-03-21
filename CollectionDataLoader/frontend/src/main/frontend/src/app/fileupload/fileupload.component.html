@@ -1,7 +1,7 @@
 <script src="../app.module.ts"></script>
 <body>
 
-<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage" (click)="dismessError()">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <span class="sr-only">Error:</span>
   {{ errorMessage }}
@@ -9,7 +9,7 @@
 
 
 
-<div class="alert alert-success" role="alert" *ngIf="notificationMessage">
+<div class="alert alert-success" role="alert" *ngIf="notificationMessage" (click)="dismessNotification()">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <span class="sr-only">Info:</span>
   {{ notificationMessage }}
@@ -21,7 +21,7 @@
 
 
 <label class="btn btn-default">
-  <input type="file" (change)="selectFile($event)" />
+  <input #fileComp type="file" (change)="selectFile($event)" />
 
 </label>
 

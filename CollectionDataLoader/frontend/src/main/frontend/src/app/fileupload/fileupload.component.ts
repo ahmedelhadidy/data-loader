@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileuploadService} from '../fileupload.service';
-import {HttpErrorResponse, HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
 import {NotificationService} from "../notification.service";
 import {Subscription} from "rxjs/Subscription";
+import 'rxjs/Rx';
 
 @Component({
 
@@ -22,6 +22,8 @@ export class FileuploadComponent implements OnInit, OnDestroy {
    env : any[];
    selectedEnv ;
    subscription: Subscription;
+
+   @ViewChild('fileComp') fileComp;
 
 
 
@@ -65,7 +67,9 @@ export class FileuploadComponent implements OnInit, OnDestroy {
 
       console.log('error happened');
       console.log(error);
-      this.errorMessage =error['_body'];
+      const filename = this.fileComp.nativeElement.value;
+      this.fileComp.nativeElement.value = '';
+      this.errorMessage ='Failed to upload file ' + filename+' :-'+error['_body'];
     });
     this.selectedFiles = undefined;
   }
@@ -78,7 +82,7 @@ export class FileuploadComponent implements OnInit, OnDestroy {
     },
     error => {
       console.log('server error '+error);
-      this.errorMessage =error['_body'];
+      this.errorMessage = 'Error processing Entity '+this.entity.name+' :-'+ error['_body'];
     }
       );
 
@@ -89,7 +93,7 @@ export class FileuploadComponent implements OnInit, OnDestroy {
   }
 
   dismessNotification() {
-    this.notificationMessage = undefined;
+    this.notificationMessage  = undefined;
   }
 
   ngOnDestroy(){
